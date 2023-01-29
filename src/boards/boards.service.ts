@@ -2,4 +2,10 @@ import { Injectable } from '@nestjs/common';
 
 //nest g service boards --no-spec
 @Injectable()
-export class BoardsService {}
+export class BoardsService {
+    private boards = [];
+
+    getAllBoards() {
+        return this.boards;
+    }
+}
