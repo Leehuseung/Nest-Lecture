@@ -11,4 +11,5 @@ export class BoardsController {
         return this.boardService.getAllBoards();
     }
 
+
 }
