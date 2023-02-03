@@ -1,4 +1,4 @@
-import {Body, Controller, Delete, Get, Param, Patch, Post} from '@nestjs/common';
+import {Body, Controller, Delete, Get, Param, Patch, Post, UsePipes, ValidationPipe} from '@nestjs/common';
 import {BoardsService} from "./boards.service";
 import {Board, BoardStatus} from "./board.model";
 import {CreateBoardDto} from "./dto/create-board.dto";
@@ -13,8 +13,9 @@ export class BoardsController {
     }
 
     @Post()
-    createBoard(@Body() createBoatdDto: CreateBoardDto) {
-        return this.boardService.createBoard(createBoatdDto);
+    @UsePipes(ValidationPipe) //핸들러 레벨에서 유효성 체크를 위한 validation check
+    createBoard(@Body() createBoardDto: CreateBoardDto) {
+        return this.boardService.createBoard(createBoardDto);
     }
 
     @Get('/:id')
