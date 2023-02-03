@@ -3,7 +3,7 @@
  * transform 메서드는 두개의 파라미터를 갖는다.
  */
 import {BadRequestException, PipeTransform} from "@nestjs/common";
-import {BoardStatus} from "../board.model";
+import {BoardStatus} from "../board-status.enum";
 
 
 export class BoardStatusValidationPipe implements PipeTransform{
