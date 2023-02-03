@@ -2,6 +2,9 @@ import {Injectable, NotFoundException} from '@nestjs/common';
 import {InjectRepository} from "@nestjs/typeorm";
 import {Repository} from "typeorm";
 import {Board} from "./board.entity";
+import {CreateBoardDto} from "./dto/create-board.dto";
+import {v1 as uuid} from 'uuid';
+import {BoardStatus} from "./board-status.enum";
 
 //nest g service boards --no-spec
 @Injectable()
@@ -24,17 +27,16 @@ export class BoardsService {
     //     return this.boards;
     // }
     //
-    // createBoard(createBoardDto: CreateBoardDto){
-    //     const {title, description} = createBoardDto;
-    //     const board: Board = {
-    //         id: uuid(),
-    //         title, // title:title -> title로 표현 가능
-    //         description,
-    //         status: BoardStatus.PUBLIC
-    //     }
-    //     this.boards.push(board);
-    //     return board;
-    // }
+    async createBoard(createBoardDto: CreateBoardDto) :Promise<Board>{
+        const {title, description} = createBoardDto;
+        const board = this.boardRepository.create({
+            title, // title:title -> title로 표현 가능
+            description,
+            status: BoardStatus.PUBLIC
+        });
+        await this.boardRepository.save(board);
+        return board;
+    }
     //
     // getBoardById(id: string): Board{
     //     const found = this.boards.find((board) => board.id === id);
