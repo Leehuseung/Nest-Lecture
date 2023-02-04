@@ -7,6 +7,11 @@ import {CreateBoardDto} from "./dto/create-board.dto";
 export class BoardsController {
     constructor(private boardService: BoardsService) {}
 
+    @Get('/test')
+    test() {
+        return this.boardService.test();
+    }
+
     // @Get()
     // getAllBoard(): Board[]{
     //     return this.boardService.getAllBoards();
@@ -35,4 +40,6 @@ export class BoardsController {
     // ) {
     //     return this.boardService.updateBoardStatus(id, status);
     // }
+
+
 }

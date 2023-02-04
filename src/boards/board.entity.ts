@@ -1,4 +1,4 @@
-import {BaseEntity, Column, Entity, PrimaryGeneratedColumn} from "typeorm";
+import {BaseEntity, Column, CreateDateColumn, Entity, PrimaryGeneratedColumn} from "typeorm";
 import {BoardStatus} from "./board-status.enum";
 @Entity()
 export class Board {
@@ -13,4 +13,14 @@ export class Board {
 
     @Column()
     status: BoardStatus;
+
+    @Column({
+        nullable: true
+    })
+    writer: string;
+
+    @CreateDateColumn({type: "datetime"})
+    createDate: Date;
+
+
 }
