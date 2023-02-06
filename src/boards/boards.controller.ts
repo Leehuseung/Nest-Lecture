@@ -1,4 +1,4 @@
-import {Body, Controller, Get, Param, Post, UsePipes, ValidationPipe} from '@nestjs/common';
+import {Body, Controller, Get, HttpCode, Param, Post, UsePipes, ValidationPipe} from '@nestjs/common';
 import {BoardsService} from "./boards.service";
 import {Board} from "./board.entity";
 import {CreateBoardDto} from "./dto/create-board.dto";
@@ -13,10 +13,12 @@ export class BoardsController {
     }
 
     @Get('/test2')
+    @HttpCode(200) // HttpCode 데코레이터를 이용해 응답을 변경한다.
     test2() {
         class a {
             m = 3;
             n = 2;
+
         }
         const aa = new a();
 
