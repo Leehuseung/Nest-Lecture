@@ -1,4 +1,4 @@
-import {Body, Controller, Get, HttpCode, Param, Post, UsePipes, ValidationPipe} from '@nestjs/common';
+import {Body, Controller, Get, HttpCode, Param, Post, Req, UsePipes, ValidationPipe} from '@nestjs/common';
 import {BoardsService} from "./boards.service";
 import {Board} from "./board.entity";
 import {CreateBoardDto} from "./dto/create-board.dto";
@@ -28,6 +28,15 @@ export class BoardsController {
         //     "n": 2
         // }
         return aa;
+    }
+
+    //request 객체가 필요하다면 Req 를 사용한다.
+    //대부분은 request 를 직접 다룰 필요는 없다.
+    @Get('/test3')
+    findAll(@Req() request: Request): string {
+
+        console.log(request);
+        return 'This action returns all cats';
     }
 
     // @Get()
