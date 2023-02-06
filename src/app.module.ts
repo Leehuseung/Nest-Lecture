@@ -7,7 +7,8 @@ import {DataSource} from "typeorm";
 @Module({
     imports: [
         TypeOrmModule.forRoot(typeORMConfig),
-        BoardsModule],
+        BoardsModule
+    ],
     controllers: [],
     providers: [],
 })
