@@ -12,6 +12,22 @@ export class BoardsController {
         return this.boardService.test();
     }
 
+    @Get('/test2')
+    test2() {
+        class a {
+            m = 3;
+            n = 2;
+        }
+        const aa = new a();
+
+        //응답값
+        // {
+        //     "m": 3,
+        //     "n": 2
+        // }
+        return aa;
+    }
+
     // @Get()
     // getAllBoard(): Board[]{
     //     return this.boardService.getAllBoards();
