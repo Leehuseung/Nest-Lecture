@@ -12,5 +12,4 @@ import {DataSource} from "typeorm";
     providers: [],
 })
 export class AppModule {
-    constructor(private dataSource: DataSource) {}
 }
