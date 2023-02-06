@@ -22,7 +22,7 @@ export class BoardsController {
         }
         const aa = new a();
 
-        //응답값
+        //응답이 직렬화돼서 처리된다. string/boolean은 직렬화하지않는다.
         // {
         //     "m": 3,
         //     "n": 2
