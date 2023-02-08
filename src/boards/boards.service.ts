@@ -10,6 +10,7 @@ import * as moment from 'moment';
 //nest g service boards --no-spec
 @Injectable()
 export class BoardsService {
+    mm = 3;
     constructor(
         @InjectRepository(Board)
         private boardRepository: Repository<Board>,
