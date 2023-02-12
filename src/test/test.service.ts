@@ -4,6 +4,6 @@ import { Injectable } from '@nestjs/common';
 export class TestService {
 
     a() {
-        console.log('a Service');
+        console.log('/test service request');
     }
 }
