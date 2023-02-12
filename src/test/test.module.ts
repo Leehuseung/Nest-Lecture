@@ -1,14 +1,18 @@
-import {Global, Module} from '@nestjs/common';
-import {BoardsService} from "../boards/boards.service";
-import {TypeOrmModule} from "@nestjs/typeorm";
-import {Board} from "../boards/board.entity";
-import { TestService } from './test.service';
-import { TestController } from './test.controller';
+import {Module} from '@nestjs/common';
+import {TestService} from './test.service';
+import {TestController} from './test.controller';
+import {APP_FILTER} from "@nestjs/core";
+import {HttpExceptionFilter} from "./exception/HttpExceptionFilter";
 
 @Module({
     imports: [],
     controllers: [TestController],
-    providers: [TestService],
+    providers: [TestService,
+        // {
+        //     provide: APP_FILTER,
+        //     useClass: HttpExceptionFilter,   //모듈단위의 예외 필터처리도 가능하다.
+        // },
+    ],
     exports: [TestService]
 })
 export class TestModule {
