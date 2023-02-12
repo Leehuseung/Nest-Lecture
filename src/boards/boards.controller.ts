@@ -5,7 +5,12 @@ import {CreateBoardDto} from "./dto/create-board.dto";
 
 @Controller('boards')
 export class BoardsController {
-    constructor(private boardService: BoardsService) {}
+    constructor(private boardService: BoardsService,
+                ) {}
+
+    @Get('/a')
+    a() {
+    }
 
     @Get('/test')
     test() {
@@ -67,6 +72,8 @@ export class BoardsController {
     // ) {
     //     return this.boardService.updateBoardStatus(id, status);
     // }
+
+
 
 
 }
