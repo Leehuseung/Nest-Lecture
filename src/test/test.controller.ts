@@ -1,4 +1,12 @@
-import {Controller, Get, HttpException, HttpStatus, InternalServerErrorException, UseFilters} from '@nestjs/common';
+import {
+    Controller,
+    Get,
+    HttpException,
+    HttpStatus,
+    InternalServerErrorException,
+    Param, ParseIntPipe, Query,
+    UseFilters
+} from '@nestjs/common';
 import {TestService} from "./test.service";
 import {HttpExceptionFilter} from "./exception/HttpExceptionFilter";
 import {AllExceptionsFilter} from "./exception/AllExceptionFilter";
@@ -50,4 +58,47 @@ export class TestController {
     exceptFilter() {
         //객체를 넣으면 메세지를 커스텀 할 수 있다.
         throw new HttpException('오류 발생 필터 처리.', HttpStatus.FORBIDDEN) }
+
+    /**
+     * 네스트에서 즉시 사용할 수 있는 파이프는 다음과 같다.
+     * ValidationPipe
+     * ParseIntPipe
+     * ParseFloatPipe
+     * ParseBoolPipe
+     * ParseArrayPipe
+     * ParseUUIDPipe
+     * ParseEnumPipe
+     * DefaultValuePipe
+     * ParseFilePipe
+     */
+
+    /**
+     * binding pipe test
+     *
+     * Int 만 유효하다. String 보낼경우 예외발생.
+     * {
+     *  "statusCode": 400,
+     *  "message": "Validation failed (numeric string is expected)",
+     *  "error": "Bad Request"
+     * }
+     */
+    @Get('int/:id')
+    intPipe(@Param('id', ParseIntPipe) id: number){
+        console.log(id);
+    }
+
+    /**
+     * binding pipe test
+     *
+     * Query에도 적용할 수 있다.
+     * {
+     *  "statusCode": 400,
+     *  "message": "Validation failed (numeric string is expected)",
+     *  "error": "Bad Request"
+     * }
+     */
+    @Get('int')
+    intQueryPipe(@Query('id', ParseIntPipe) id: number){
+        console.log(id);
+    }
 }
