@@ -2,6 +2,9 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { TestController } from './test.controller';
 import {TestService} from "./test.service";
 
+/**
+ * 강의 mocking
+ */
 describe('TestController', () => {
   let controller: TestController;
 
