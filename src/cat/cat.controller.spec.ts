@@ -1,13 +1,17 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { CatController } from './cat.controller';
 import {CatService} from "./cat.service";
+import {Board} from "../boards/board.entity";
+import {Repository} from "typeorm";
+import {TestService} from "../test/test.service";
 
 describe('CatsController', () => {
   let catsController: CatController;
   let catsService: CatService;
+  let boardRepository: Repository<Board>
 
   beforeEach(() => {
-    catsService = new CatService();
+    catsService = new CatService(boardRepository);
     catsController = new CatController(catsService);
   });
 
