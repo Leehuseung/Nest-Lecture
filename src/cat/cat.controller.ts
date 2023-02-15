@@ -6,6 +6,7 @@ export class CatController {
     constructor(private catService: CatService) {}
 
     findAll() {
+        this.catService.test();
         return this.catService.findAll();
     }
 
