@@ -17,8 +17,7 @@ export class CatService {
         return [1,2,3,4,5,6,7,8,9,10];
     }
 
-    test() {
-        const a = this.boardRepository.find();
-        console.log('이건 테스트');
+    async test() {
+        return this.boardRepository.find();
     }
 }
