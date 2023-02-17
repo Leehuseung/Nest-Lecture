@@ -54,10 +54,11 @@ export class TestController {
     @Get('filter')
     // @UseFilters(HttpExceptionFilter)
     // @UseFilters(new HttpExceptionFilter())
-    @UseFilters(AllExceptionsFilter,HttpExceptionFilter) // 뒤에 선언한 필터가 먼저 실행된다..
+    // @UseFilters(AllExceptionsFilter,HttpExceptionFilter) // 뒤에 선언한 필터가 먼저 실행된다..
     exceptFilter() {
         //객체를 넣으면 메세지를 커스텀 할 수 있다.
-        throw new HttpException('오류 발생 필터 처리.', HttpStatus.FORBIDDEN) }
+        throw new HttpException('오류 발생 필터 처리.', HttpStatus.FORBIDDEN)
+    }
 
     /**
      * 네스트에서 즉시 사용할 수 있는 파이프는 다음과 같다.
