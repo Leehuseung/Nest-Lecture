@@ -22,6 +22,10 @@ describe('CatsController', () => {
       }],
     }).compile();
 
+    boardRepository = moduleRef.get<Repository<Board>>(
+        getRepositoryToken(Board),
+    ); // Board 엔티티 리포지토리를 가져옵니다.
+
     catsService = moduleRef.get<CatService>(CatService);
     catsController = moduleRef.get<CatController>(CatController);
   });
