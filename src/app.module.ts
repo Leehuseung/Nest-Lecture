@@ -4,15 +4,17 @@ import {TypeOrmModule} from "@nestjs/typeorm";
 import {typeORMConfig} from "./configs/typeorm.config";
 import {TestModule} from './test/test.module';
 import {PaymentsModule} from './payments/payments.module';
-import { CatModule } from './cat/cat.module';
-import {APP_FILTER} from "@nestjs/core";
+import {CatModule} from './cat/cat.module';
+import {APP_FILTER, APP_INTERCEPTOR} from "@nestjs/core";
 import {AllExceptionsFilter} from "./filter/all-exceptions-filter";
 import {Board} from "./boards/board.entity";
+import {LiveLogsEntity} from "./log/live-logs.entity";
+import {LoggingInterceptor} from "./interceptor/loggin.interceptor";
 
 @Module({
     imports: [
         TypeOrmModule.forRoot(typeORMConfig),
-        TypeOrmModule.forFeature([Board]),
+        TypeOrmModule.forFeature([Board, LiveLogsEntity]),
         BoardsModule,
         TestModule,
         PaymentsModule,
@@ -21,10 +23,17 @@ import {Board} from "./boards/board.entity";
     controllers: [],
     providers: [
         {
+            provide: APP_INTERCEPTOR,
+            useClass: LoggingInterceptor,
+        },
+        {
             provide: APP_FILTER,
             useClass: AllExceptionsFilter
-        },
+        }
     ],
 })
 export class AppModule {
+    // configure(consumer: MiddlewareConsumer) {
+    //     consumer.apply(LoggerMiddleware).forRoutes('*');
+    // }
 }

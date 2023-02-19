@@ -8,14 +8,14 @@ import {
 import { HttpAdapterHost } from '@nestjs/core';
 import { Request, Response } from 'express';
 import {InjectRepository} from "@nestjs/typeorm";
-import {Board} from "../boards/board.entity";
 import {Repository} from "typeorm";
+import {LiveLogsEntity} from "../log/live-logs.entity";
 
 @Catch()
 export class AllExceptionsFilter implements ExceptionFilter {
     constructor(private readonly httpAdapterHost: HttpAdapterHost,
-                @InjectRepository(Board)
-                private boardRepository: Repository<Board>,
+                @InjectRepository(LiveLogsEntity)
+                private liveLogsRepository: Repository<LiveLogsEntity>
                 ) {}
 
     catch(exception: unknown, host: ArgumentsHost): void {
@@ -25,10 +25,8 @@ export class AllExceptionsFilter implements ExceptionFilter {
         console.log('1');
         console.log('1');
         const ctx = host.switchToHttp();
-        const response = ctx.getResponse<Response>();
-        const request = ctx.getRequest<Request>();
-
-
+        const res = ctx.getResponse<Response>();
+        const req = ctx.getRequest<Request>();
 
         const httpStatus =
             exception instanceof HttpException
@@ -40,6 +38,29 @@ export class AllExceptionsFilter implements ExceptionFilter {
             timestamp: new Date().toISOString(),
             path: httpAdapter.getRequestUrl(ctx.getRequest()),
         };
+
+        const method = req.method;
+        const statusCode = responseBody.statusCode;
+        const remoteIp = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
+        const url = req.originalUrl
+        const userAgent = req.headers['user-agent'];
+        const requestData = req.body;
+
+        const err = exception as Error;
+        const stack = err.stack;
+        const liveLog = new LiveLogsEntity(
+            method,
+            statusCode,
+            JSON.stringify(remoteIp),
+            url,
+            userAgent,
+            stack,
+            requestData,
+            responseBody
+        );
+
+        this.liveLogsRepository.save(liveLog)
+            .then(res => res);
 
         httpAdapter.reply(ctx.getResponse(), responseBody, httpStatus);
     }

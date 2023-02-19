@@ -8,6 +8,9 @@ import {TestModule} from "../test/test.module";
 @Module({
   imports: [TypeOrmModule.forFeature([Board])],
   controllers: [CatController],
-  providers: [CatService]
+  providers: [{
+    provide: CatService,
+    useClass: CatService
+  }]
 })
 export class CatModule {}
