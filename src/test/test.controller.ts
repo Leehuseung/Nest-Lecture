@@ -5,11 +5,12 @@ import {
     HttpStatus,
     InternalServerErrorException,
     Param, ParseIntPipe, Query,
-    UseFilters
+    UseFilters, UseInterceptors
 } from '@nestjs/common';
 import {TestService} from "./test.service";
 import {HttpExceptionFilter} from "./exception/HttpExceptionFilter";
 import {AllExceptionsFilter} from "./exception/AllExceptionFilter";
+import {LoggingInterceptor} from "../interceptor/loggin.interceptor";
 
 @Controller('test')
 export class TestController {
@@ -101,5 +102,11 @@ export class TestController {
     @Get('int')
     intQueryPipe(@Query('id', ParseIntPipe) id: number){
         console.log(id);
+    }
+
+    @Get('intercept')
+    @UseInterceptors(LoggingInterceptor)
+    intercept(){
+        return 'intercept';
     }
 }
