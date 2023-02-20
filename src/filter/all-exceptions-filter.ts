@@ -47,7 +47,10 @@ export class AllExceptionsFilter implements ExceptionFilter {
         const requestData = req.body;
 
         const err = exception as Error;
-        const stack = err.stack;
+        let stack = '';
+        if (typeof err.stack === 'string') {
+            stack = err.stack;
+        }
         const liveLog = new LiveLogsEntity(
             method,
             statusCode,
