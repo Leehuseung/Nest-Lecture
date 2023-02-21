@@ -10,6 +10,7 @@ import {AllExceptionsFilter} from "./filter/all-exceptions-filter";
 import {Board} from "./boards/board.entity";
 import {LiveLogsEntity} from "./log/live-logs.entity";
 import {LoggingInterceptor} from "./interceptor/loggin.interceptor";
+import { StripeModule } from './stripe/stripe.module';
 
 @Module({
     imports: [
@@ -18,7 +19,8 @@ import {LoggingInterceptor} from "./interceptor/loggin.interceptor";
         BoardsModule,
         TestModule,
         PaymentsModule,
-        CatModule
+        CatModule,
+        StripeModule.forRoot('api-key',{apiVersion: '2022-11-15'})
     ],
     controllers: [],
     providers: [
