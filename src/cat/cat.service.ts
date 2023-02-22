@@ -1,10 +1,10 @@
-import { Injectable } from '@nestjs/common';
+import {Injectable, OnModuleInit} from '@nestjs/common';
 import {InjectRepository} from "@nestjs/typeorm";
 import {Board} from "../boards/board.entity";
 import {Repository} from "typeorm";
 
 @Injectable()
-export class CatService {
+export class CatService implements OnModuleInit{
 
     constructor(
         @InjectRepository(Board)
@@ -19,5 +19,13 @@ export class CatService {
 
     async test() {
         return this.boardRepository.find();
+    }
+
+    onModuleInit() {
+        console.log('init Cat Service')
+        console.log('init Cat Service')
+        console.log('init Cat Service')
+        console.log('init Cat Service')
+        console.log('init Cat Service')
     }
 }
