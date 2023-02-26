@@ -32,4 +32,8 @@ describe('TestController', () => {
   it('test', () => {
     controller.a();
   });
+
+  test('2 더하기 2는 4가 아닙니다.', () => {
+    expect(2 + 2).not.toBe(5);
+  });
 });
