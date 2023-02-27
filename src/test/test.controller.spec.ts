@@ -33,7 +33,33 @@ describe('TestController', () => {
     controller.a();
   });
 
+  //not
   test('2 더하기 2는 4가 아닙니다.', () => {
     expect(2 + 2).not.toBe(5);
   });
+
+
+
+  describe('drinkAll', () => {
+    let  drinkAll = function (callback, flavour) {
+      if (flavour !== 'octopus') {
+        callback(flavour);
+      }
+    }
+    test('drinks something lemon-flavoured', () => {
+      const drink = jest.fn();
+      drinkAll(drink, 'lemon');
+      expect(drink).toHaveBeenCalled();
+    });
+
+    test('does not drink something octopus-flavoured', () => {
+      const drink = jest.fn();
+      drinkAll(drink, 'octopus');
+      expect(drink).not.toHaveBeenCalled();
+    });
+  });
+
+
+
+
 });
